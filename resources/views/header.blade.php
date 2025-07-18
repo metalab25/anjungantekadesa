@@ -4,12 +4,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 text-center mx-auto">
-                    <h1 class="text-white pt-3 mt-n5 text-dark">{{ $setting->sebutan_desa . ' ' . $config->nama_desa }}
+                    {{-- <img src="{{ $config->website . '/storage' . $config->logo }}" alt="Logo" width="100" class="mb-3" /> --}}
+
+                    <h1 class="text-white pt-3 mt-2 text-dark">{{ $setting->sebutan_desa . ' ' . $config->nama_desa }}
                     </h1>
                     <p class="text-white mt-3 hidden-xs">
                         {{ $config->alamat_kantor . ', ' . $setting->sebutan_kecamatan . ' ' . $config->nama_kecamatan . ', ' . $setting->sebutan_kabupaten . ' ' . $config->nama_kabupaten }}.
-                        <br />
-                        {{ 'Provinsi ' . $config->provinsi->nama . '. Kode Pos ' . $config->kode_pos }}
                         <br />
                         {{ 'Telepon : ' . $config->telepon }} {{ ' - Email : ' . $config->email_desa }}
                     </p>

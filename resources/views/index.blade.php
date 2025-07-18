@@ -24,10 +24,11 @@
                 <nav
                     class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
+                        <img src="{{ $config->website . '/storage' . $config->logo }}" alt="Logo" width="30" class=" ms-5">
                         <a class="navbar-brand font-weight-bolder ms-sm-3"
-                            href="https://demos.creative-tim.com/soft-ui-design-system/index.html" rel="tooltip"
+                            href="https://desa.beleka.begawe.com" rel="tooltip"
                             title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
-                            Soft UI Design 3 System
+                            {{ 'Desa ' . $config->nama_desa }}
                         </a>
                         <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
@@ -1043,7 +1044,41 @@
             </div>
         </div>
     </div>
+
+
+
     @include('header')
+    <div class="row justify-content-center">
+        <div class="col-md-4 mx-auto">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form method="POST" action="{{ route('login.store') }}">
+                @csrf
+                <div class="form-group">
+                    <label for="nik">NIK</label>
+                    <input type="text" class="form-control" id="nik" name="nik" value="{{ old('nik') }}" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="pin">PIN</label>
+                    <input type="password" class="form-control" id="pin" name="pin" required>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+
     <footer class="footer pt-5 mt-5">
         <div class="container">
             <div class=" row">

@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'token' => '8Grx9Z1kMypHtN2xvWDKkLJo4Qcuf0S3AbVrYezm',
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
