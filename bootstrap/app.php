@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SuratAuth;
 use App\Http\Middleware\SuratAuthMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
