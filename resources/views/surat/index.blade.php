@@ -18,12 +18,26 @@
 @endsection
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="row">
-    @foreach ($formatSurat as $surat)
+    @foreach ($surat as $surat)
         <div class="col-md-2 mx-auto">
             <div class="card mb-0 mb-sm-3">
                 <div class="card-body p-3">
-                    <a href="#">
+                    <a href="{{ route('layanan.surat.detail', $surat['url_surat']) }}">
                         <div class="item-surat">
                             <i class="fad fa-file-pdf text-info"></i>
                             <p class="mb-0">{{ $surat['nama'] ?? '-' }}</p>

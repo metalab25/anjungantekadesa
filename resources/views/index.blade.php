@@ -24,6 +24,7 @@
                 <nav
                     class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
+
                         <img src="{{ $config->website . '/storage' . $config->logo }}" alt="Logo" width="30" class=" ms-5">
                         <a class="navbar-brand font-weight-bolder ms-sm-3"
                             href="https://desa.beleka.begawe.com" rel="tooltip"
@@ -1068,10 +1069,6 @@
                 <div class="form-group">
                     <label for="pin">PIN</label>
                     <input type="password" class="form-control" id="pin" name="pin" required>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>

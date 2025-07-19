@@ -41,11 +41,16 @@ class AppServiceProvider extends ServiceProvider
             'Authorization' => 'Bearer ' . $token,
         ])->withoutVerifying()->get($url . '/api/config');
 
+
+        // dd($response);
+
         if ($response->successful()) {
             $data = $response->json();
 
+            // dd($data);
+
             // Ambil data[0] saja karena itu yang kita butuhkan
-            $config = (object) ($data['data'][0] ?? []);
+            $config = (object) ($data['data'] ?? []);
 
             View::share('config', $config);
         } else {
