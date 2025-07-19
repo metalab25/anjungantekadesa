@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class SuratController extends Controller
 {
-    protected $apiBase = 'http://localhost:8001/api';
+    protected $apiBase = 'https://desa.beleka.begawe.com/api';
 
     protected function apiCookies()
     {

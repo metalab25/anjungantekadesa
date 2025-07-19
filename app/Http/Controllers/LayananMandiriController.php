@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class LayananMandiriController extends Controller
 {
-    protected $apiBase = 'http://localhost:8001/api/layanan-mandiri'; // Sesuaikan base path jika berbeda
+    protected $apiBase = 'https://desa.beleka.begawe.com/api/layanan-mandiri'; // Sesuaikan base path jika berbeda
 
     protected function apiCookies()
     {
