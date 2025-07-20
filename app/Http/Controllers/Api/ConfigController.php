@@ -13,11 +13,11 @@ class ConfigController extends Controller
 
         $token = config('app.token');
 
-        $url = 'https://desa.beleka.begawe.com';
+        $url = env('DESA_API');
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($url . '/api/config');
+        ])->get($url . '/config');
 
         if ($response->successful()) {
             $data = $response->json();
