@@ -7,7 +7,12 @@ use Illuminate\Support\Facades\Http;
 
 class SuratController extends Controller
 {
-    protected $apiBase = 'https://desa.beleka.begawe.com/api';
+    protected $apiBase;
+
+    public function __construct()
+    {
+        $this->apiBase = env('DESA_API');
+    }
 
     protected function apiCookies()
     {

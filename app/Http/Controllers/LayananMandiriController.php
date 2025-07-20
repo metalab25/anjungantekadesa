@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class LayananMandiriController extends Controller
 {
-    protected $apiBase = 'https://desa.beleka.begawe.com/api/layanan-mandiri'; // Sesuaikan base path jika berbeda
+    protected $apiBase;
+
+    public function __construct()
+    {
+        $this->apiBase = env('DESA_API');
+    }
 
     protected function apiCookies()
     {
@@ -18,7 +26,7 @@ class LayananMandiriController extends Controller
 
     public function login(Request $request)
     {
-        $response = Http::post($this->apiBase . '/login', [
+        $response = Http::post($this->apiBase . '/layanan-mandiri' . '/login', [
             'nik' => $request->nik,
             'pin' => $request->pin,
         ]);
@@ -38,7 +46,7 @@ class LayananMandiriController extends Controller
     {
         $sessionId = session('penduduk_session_id');
 
-        $response = Http::asForm()->post($this->apiBase . '/logout', [
+        $response = Http::asForm()->post($this->apiBase . '/layanan-mandiri' . '/logout', [
             'session_id' => $sessionId,
         ]);
 
@@ -48,7 +56,7 @@ class LayananMandiriController extends Controller
 
     public function listSurat()
     {
-        $url = $this->apiBase . '/surat';
+        $url = $this->apiBase . '/layanan-mandiri' . '/surat';
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
 
         $surat = $response->json('data') ?? [];
@@ -56,56 +64,55 @@ class LayananMandiriController extends Controller
     }
 
     public function detailSurat($url_surat)
-{
-    $url = $this->apiBase . '/surat/' . $url_surat;
-    $response = Http::get($url);
-    $data = $response->json('data') ?? null;
+    {
+        $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $url_surat;
+        $response = Http::get($url);
+        $data = $response->json('data') ?? null;
+        $user = Session::get('user');
 
-    if (!$data) {
-        return redirect()->route('surat.create')->with('error', 'Surat tidak ditemukan');
+        if (!$data) {
+            return redirect()->back()->with('error', 'Surat tidak ditemukan');
+        }
+
+
+        if (isset($data['kode_isian']) && is_string($data['kode_isian'])) {
+            $data['kode_isian'] = json_decode($data['kode_isian'], true);
+        }
+
+        return view('surat.create', compact('data', 'user'));
     }
-
-
-    if (isset($data['kode_isian']) && is_string($data['kode_isian'])) {
-        $data['kode_isian'] = json_decode($data['kode_isian'], true);
-    }
-
-    return view('surat.create', compact('data'));
-}
 
 
     public function ajukanSurat(Request $request, $url_surat)
-{
-    $url = $this->apiBase . '/surat/' . $url_surat . '/ajukan';
+    {
+        try {
 
-    $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))
-        ->asJson()
-        ->post($url, $request->except('_token')); 
+            $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $url_surat . '/ajukan';
 
-        $result = $response->json();
+            $response = Http::withHeaders([
+                'Accept' => 'application/json'
+            ])
+                ->withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))
+                ->asJson()
+                ->post($url, $request->except('_token'));
 
-        if (!$response->ok()) {
-            return back()->with('error', 'Gagal menghubungi server API: ' . $response->status());
+            $result = $response->json();
+
+            if (!$result['success']) {
+                return back()->with('error', $result['message'] ?? 'Gagal mengajukan surat');
+            }
+
+            return redirect()->route('surat.index')->with('success', $result['message'] ?? 'Surat berhasil diajukan');
+        } catch (Exception $err) {
+            Log::error('Gagal Mengajukan Surat: ', $err->getMessage());
+            return back()->with('Gagal Mengajukan Surat');
         }
-
-        if (!is_array($result) || !isset($result['success'])) {
-            return back()->with('error', 'Response tidak valid dari API');
-        }
-
-        if ($result['success']) {
-            return redirect()->route('surat.index')->with('success', 'Surat berhasil diajukan');
-        }
-
-        return back()->with('error', $result['message'] ?? 'Gagal mengajukan surat');
-
-
-    return back()->with('error', $result['message'] ?? 'Gagal mengajukan surat');
-}
+    }
 
 
     public function arsipSurat()
     {
-        $url = $this->apiBase . '/arsip';
+        $url = $this->apiBase . '/layanan-mandiri' . '/arsip';
 
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
         $arsip = $response->json('data') ?? [];
@@ -115,7 +122,7 @@ class LayananMandiriController extends Controller
 
     public function downloadSurat($id)
     {
-        $url = $this->apiBase . '/surat/' . $id . '/download';
+        $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $id . '/download';
 
         return Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))
             ->get($url)

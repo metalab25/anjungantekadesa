@@ -23,7 +23,7 @@ class LoginController extends Controller
 
 
         try {
-            $response = Http::withoutVerifying()->post('https://desa.beleka.begawe.com/api/anjungan/login', [
+            $response = Http::withoutVerifying()->post('http://localhost:8001/api/anjungan/login', [
                 'nik' => $credentials['nik'],
                 'pin' => $credentials['pin'],
             ]);

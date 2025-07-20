@@ -19,15 +19,15 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        
+
 
 $token = config('app.token');
 
-        $url = 'https://desa.beleka.begawe.com';
+        $url = env('DESA_API');
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->withoutVerifying()->get($url . '/api/config');
+        ])->withoutVerifying()->get($url . '/config');
 
         if ($response->successful()) {
             $data = $response->json();
