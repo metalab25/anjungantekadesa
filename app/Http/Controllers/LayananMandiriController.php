@@ -13,12 +13,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 class LayananMandiriController extends Controller
 {
     protected $apiBase;
-    protected $desaUrl;
 
     public function __construct()
     {
         $this->apiBase = env('DESA_API');
-        $this->desaUrl = env('DESA_URL');
     }
 
     protected function apiCookies()
@@ -105,9 +103,7 @@ class LayananMandiriController extends Controller
             }
 
             Alert::success('Berhasil', $result['message']);
-            return redirect()->route('layanan.surat.preview', [
-                'path' => $result['data']['path']
-            ]);
+            return redirect()->route('layanan.surat.preview', $result['data']['id']);
         } catch (Exception $err) {
             Log::error('Gagal Mengajukan Surat: '  . $err->getMessage());
             return back()->with('Gagal Cetak Surat');
@@ -124,13 +120,31 @@ class LayananMandiriController extends Controller
         return view('surat.index', compact('arsip'));
     }
 
-    public function previewSurat(Request $request)
+    public function previewSurat(Request $request, $id)
     {
-        $path = $request->query('path');
-        $desa = $this->desaUrl;
+        $url = $this->apiBase . '/layanan-mandiri/preview/surat/' . $id;
 
-        return view('surat.preview', compact('desa', 'path'));
+        $response = Http::get($url);
+        $result = $response->json();
+
+        if (!isset($result['status']) || $result['status'] !== 200) {
+            abort(404, 'Surat tidak ditemukan');
+        }
+
+        if ($request->query('inline') == 'true') {
+            return response(base64_decode($result['data']), 200, [
+                'Content-Type' => $result['mime'],
+                'Content-Disposition' => 'inline; filename="surat-preview.pdf"',
+            ]);
+        }
+
+        return view('surat.preview', [
+            'id' => $id,
+            'data' => $result['data'],
+            'mime' => $result['mime'],
+        ]);
     }
+
 
     public function downloadSurat($id)
     {

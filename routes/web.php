@@ -24,7 +24,7 @@ Route::middleware(SuratAuthMiddleware::class)->group(function () {
     Route::get('/surat', [LayananMandiriController::class, 'listSurat'])->name('surat.index');
     Route::get('/surat/{url_surat}', [LayananMandiriController::class, 'detailSurat'])->name('layanan.surat.detail');
     Route::post('/surat/{url_surat}/ajukan', [LayananMandiriController::class, 'ajukanSurat'])->name('layanan.surat.ajukan');
-    Route::get('/preview/surat', [LayananMandiriController::class, 'previewSurat'])->name('layanan.surat.preview');
+    Route::get('/preview/surat/{id}', [LayananMandiriController::class, 'previewSurat'])->name('layanan.surat.preview');
 
     Route::get('/arsip', [LayananMandiriController::class, 'arsipSurat'])->name('layanan.arsip');
     Route::get('/arsip/{id}/download', [LayananMandiriController::class, 'downloadSurat'])->name('layanan.arsip.download');
