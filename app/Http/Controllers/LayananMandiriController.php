@@ -109,7 +109,6 @@ class LayananMandiriController extends Controller
         }
     }
 
-
     public function arsipSurat()
     {
         $url = $this->apiBase . '/layanan-mandiri' . '/arsip';

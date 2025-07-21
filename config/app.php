@@ -32,6 +32,7 @@ return [
     */
 
     'author' => env('APP_AUTHOR', 'Teka Desa'),
+    'urlauthor' => env('APP_URLAUTHOR', 'https://tekadesa.com'),
 
     /*
     |--------------------------------------------------------------------------

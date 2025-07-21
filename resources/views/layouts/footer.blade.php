@@ -1,33 +1,14 @@
-<footer class="footer pt-5 mt-5">
-    <div class="container">
-        <div class=" row">
-            <div class="col-12">
-                <div class="text-center">
-                    <p class="my-4 text-sm">
-                        All rights reserved. Copyright ©
-                        <script>
-                            document.write(new Date().getFullYear())
-
-                        </script> {{ config('app.name') }} <a href="https://www.tekadesa.com" target="_blank">{{ config('app.author') }}</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 <script src="{{ asset('assets/plugins/core/popper.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/core/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/countup.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/choices.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/prism.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/highlight.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/rellax.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/tilt.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/choices.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/parallax.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/soft-design-system.min.js') }}?v=1.1.0" type="text/javascript"></script>
-
+<script src="{{ asset('assets/js/soft-design-system.js') }}" type="text/javascript"></script>
+@stack('script')
 
 <script type="text/javascript">
     if (document.getElementById('state1')) {
