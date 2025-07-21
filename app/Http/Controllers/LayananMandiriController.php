@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LayananMandiriController extends Controller
 {
@@ -74,7 +75,6 @@ class LayananMandiriController extends Controller
             return redirect()->back()->with('error', 'Surat tidak ditemukan');
         }
 
-
         if (isset($data['kode_isian']) && is_string($data['kode_isian'])) {
             $data['kode_isian'] = json_decode($data['kode_isian'], true);
         }
@@ -86,7 +86,6 @@ class LayananMandiriController extends Controller
     public function ajukanSurat(Request $request, $url_surat)
     {
         try {
-
             $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $url_surat . '/ajukan';
 
             $response = Http::withHeaders([
@@ -98,14 +97,16 @@ class LayananMandiriController extends Controller
 
             $result = $response->json();
 
-            if (!$result['success']) {
-                return back()->with('error', $result['message'] ?? 'Gagal mengajukan surat');
+            if ($result['status'] === 404) {
+                Alert::error('Gagal Cetak Surat', $result['message']);
+                return redirect()->back();
             }
 
-            return redirect()->route('surat.index')->with('success', $result['message'] ?? 'Surat berhasil diajukan');
+            Alert::success('Berhasil', $result['message']);
+            return redirect()->route('layanan.surat.preview', $result['data']['id']);
         } catch (Exception $err) {
-            Log::error('Gagal Mengajukan Surat: ', $err->getMessage());
-            return back()->with('Gagal Mengajukan Surat');
+            Log::error('Gagal Mengajukan Surat: '  . $err->getMessage());
+            return back()->with('Gagal Cetak Surat');
         }
     }
 
@@ -118,6 +119,32 @@ class LayananMandiriController extends Controller
 
         return view('surat.index', compact('arsip'));
     }
+
+    public function previewSurat(Request $request, $id)
+    {
+        $url = $this->apiBase . '/layanan-mandiri/preview/surat/' . $id;
+
+        $response = Http::get($url);
+        $result = $response->json();
+
+        if (!isset($result['status']) || $result['status'] !== 200) {
+            abort(404, 'Surat tidak ditemukan');
+        }
+
+        if ($request->query('inline') == 'true') {
+            return response(base64_decode($result['data']), 200, [
+                'Content-Type' => $result['mime'],
+                'Content-Disposition' => 'inline; filename="surat-preview.pdf"',
+            ]);
+        }
+
+        return view('surat.preview', [
+            'id' => $id,
+            'data' => $result['data'],
+            'mime' => $result['mime'],
+        ]);
+    }
+
 
     public function downloadSurat($id)
     {
