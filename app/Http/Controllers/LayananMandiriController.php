@@ -8,14 +8,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LayananMandiriController extends Controller
 {
     protected $apiBase;
+    protected $desaUrl;
 
     public function __construct()
     {
         $this->apiBase = env('DESA_API');
+        $this->desaUrl = env('DESA_URL');
     }
 
     protected function apiCookies()
@@ -74,7 +77,6 @@ class LayananMandiriController extends Controller
             return redirect()->back()->with('error', 'Surat tidak ditemukan');
         }
 
-
         if (isset($data['kode_isian']) && is_string($data['kode_isian'])) {
             $data['kode_isian'] = json_decode($data['kode_isian'], true);
         }
@@ -86,7 +88,6 @@ class LayananMandiriController extends Controller
     public function ajukanSurat(Request $request, $url_surat)
     {
         try {
-
             $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $url_surat . '/ajukan';
 
             $response = Http::withHeaders([
@@ -98,14 +99,18 @@ class LayananMandiriController extends Controller
 
             $result = $response->json();
 
-            if (!$result['success']) {
-                return back()->with('error', $result['message'] ?? 'Gagal mengajukan surat');
+            if ($result['status'] === 404) {
+                Alert::error('Gagal Cetak Surat', $result['message']);
+                return redirect()->back();
             }
 
-            return redirect()->route('surat.index')->with('success', $result['message'] ?? 'Surat berhasil diajukan');
+            Alert::success('Berhasil', $result['message']);
+            return redirect()->route('layanan.surat.preview', [
+                'path' => $result['data']['path']
+            ]);
         } catch (Exception $err) {
-            Log::error('Gagal Mengajukan Surat: ', $err->getMessage());
-            return back()->with('Gagal Mengajukan Surat');
+            Log::error('Gagal Mengajukan Surat: '  . $err->getMessage());
+            return back()->with('Gagal Cetak Surat');
         }
     }
 
@@ -117,6 +122,14 @@ class LayananMandiriController extends Controller
         $arsip = $response->json('data') ?? [];
 
         return view('surat.index', compact('arsip'));
+    }
+
+    public function previewSurat(Request $request)
+    {
+        $path = $request->query('path');
+        $desa = $this->desaUrl;
+
+        return view('surat.preview', compact('desa', 'path'));
     }
 
     public function downloadSurat($id)

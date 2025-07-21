@@ -197,7 +197,9 @@
                             {{-- ===== PERIODE BERLAKU ===== --}}
                             <hr class="my-4">
                             <div class="row g-3 mb-4">
-                                <label class="col-md-4 col-form-label">Berlaku Dari – Sampai</label>
+                                <div class="col-md-4">
+                                    <label>Berlaku Dari – Sampai</label>
+                                </div>
                                 <div class="col-md-4">
                                     <input type="date" name="tgl_mulai" class="form-control"
                                         value="{{ date('Y-m-d') }}">
@@ -213,8 +215,9 @@
 
                             {{-- ===== SUBMIT ===== --}}
                             <div class="d-grid d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary">
-                                    <i class="bi bi-send me-1"></i> Ajukan Surat
+                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#previewModal">
+                                    <i class="bi bi-send me-1"></i> Cetak Surat
                                 </button>
                             </div>
                         </form>
