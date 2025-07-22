@@ -33,3 +33,8 @@
     border-top-right-radius: 2rem !important;
     border-bottom-right-radius: 2rem !important;
 }
+
+.form-control:focus {
+    border-color: #e6e0e0 !important;
+    box-shadow: none;
+}

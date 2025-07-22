@@ -20,9 +20,6 @@ class SuratController extends Controller
         return $apiSession ? ['laravel_session' => $apiSession] : [];
     }
 
-    /**
-     * Menampilkan semua format surat (list surat yang bisa diajukan)
-     */
     public function getAllSurat(Request $request)
     {
         $url = $this->apiBase . '/surat';
@@ -31,9 +28,6 @@ class SuratController extends Controller
         return view('surat.index', compact('surat'));
     }
 
-    /**
-     * Menampilkan form pembuatan surat berdasarkan url_surat
-     */
     public function createSurat($url_surat)
     {
         $url = $this->apiBase . '/surat/' . $url_surat;
@@ -47,9 +41,6 @@ class SuratController extends Controller
         return view('surat.create', compact('formatSurat'));
     }
 
-    /**
-     * Submit form surat ke API
-     */
     public function storeSurat(Request $request, $url_surat)
     {
         $url = $this->apiBase . '/surat/' . $url_surat . '/ajukan';

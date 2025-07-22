@@ -8,7 +8,7 @@
             <iframe id="previewPdf" src="{{ route('layanan.surat.preview', ['id' => $id, 'inline' => 'true']) }}#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="800px"
                 style="border: none;"></iframe>
         </div>
-        <div class="row justify-content-between">
+        <div class="row justify-content-between mt-3">
             <a href="{{ route('surat.index') }}" class="btn btn-danger w-auto mb-0 mt-2 ms-2">
                 <i class="bi bi-printer me-1"></i> Kembali
             </a>

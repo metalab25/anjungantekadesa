@@ -19,10 +19,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-
-
-$token = config('app.token');
-
+        $token = config('app.token');
         $url = env('DESA_API');
 
         $response = Http::withHeaders([

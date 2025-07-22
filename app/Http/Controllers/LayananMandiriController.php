@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -82,7 +81,6 @@ class LayananMandiriController extends Controller
         return view('surat.create', compact('data', 'user'));
     }
 
-
     public function ajukanSurat(Request $request, $url_surat)
     {
         try {
@@ -144,7 +142,6 @@ class LayananMandiriController extends Controller
             'mime' => $result['mime'],
         ]);
     }
-
 
     public function downloadSurat($id)
     {
