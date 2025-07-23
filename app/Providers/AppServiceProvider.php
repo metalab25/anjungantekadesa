@@ -31,9 +31,11 @@ class AppServiceProvider extends ServiceProvider
 
             $config = (object) $data['data'][0];
             $setting = (object) $data['data'][1];
+            $pengumuman = (object) $data['data'][2];
 
             View::share('config', $config);
             View::share('setting', $setting);
+            View::share('pengumuman', $pengumuman);
         } else {
             View::share('config', null);
             View::share('setting', null);
