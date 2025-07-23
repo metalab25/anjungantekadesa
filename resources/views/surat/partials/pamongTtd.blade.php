@@ -6,7 +6,7 @@
         <select name="pamong_ttd" id="pamong_ttd" class="form-select" readonly >
             @foreach ($data['pamongTtd'] as $pamong)
                 @if ($pamong['jabatan'] === 'Kepala Desa')
-                    <option value="1">
+                    <option value="0">
                         {{ $pamong['jabatan'] }} {{ $config->nama_desa }}
                     </option>
                 @endif
