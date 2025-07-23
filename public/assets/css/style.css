@@ -38,3 +38,10 @@
     border-color: #e6e0e0 !important;
     box-shadow: none;
 }
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: #e9ecef94;
+    opacity: 1;
+}

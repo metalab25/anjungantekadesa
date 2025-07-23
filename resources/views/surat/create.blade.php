@@ -192,7 +192,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <input type="date" name="tgl_mulai" class="form-control"
-                                            value="{{ date('Y-m-d') }}">
+                                            value="{{ date('Y-m-d') }}" readonly>
                                     </div>
                                     <div class="col-md-4">
                                         <input type="date" name="tgl_akhir" class="form-control"
