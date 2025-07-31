@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->withoutVerifying()->get($url . '/config');
+        ])->withoutVerifying()->get($url . '/api' . '/config');
 
         if ($response->successful()) {
             $data = $response->json();
