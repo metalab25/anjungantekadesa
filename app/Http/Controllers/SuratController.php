@@ -22,7 +22,7 @@ class SuratController extends Controller
 
     public function getAllSurat(Request $request)
     {
-        $url = $this->apiBase . '/surat';
+        $url = $this->apiBase . '/api' . '/surat';
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
         $surat = $response->json('data') ?? [];
         return view('surat.index', compact('surat'));
@@ -30,7 +30,7 @@ class SuratController extends Controller
 
     public function createSurat($url_surat)
     {
-        $url = $this->apiBase . '/surat/' . $url_surat;
+        $url = $this->apiBase . '/api' . '/surat/' . $url_surat;
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
         $formatSurat = $response->json('data') ?? null;
 
@@ -43,7 +43,7 @@ class SuratController extends Controller
 
     public function storeSurat(Request $request, $url_surat)
     {
-        $url = $this->apiBase . '/surat/' . $url_surat . '/ajukan';
+        $url = $this->apiBase . '/api' . '/surat/' . $url_surat . '/ajukan';
         $data = $request->except('_token');
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))
             ->asForm()

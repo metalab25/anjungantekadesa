@@ -17,7 +17,7 @@ class ConfigController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($url . '/config');
+        ])->get($url . '/api' . '/config');
 
         if ($response->successful()) {
             $data = $response->json();

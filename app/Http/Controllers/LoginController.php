@@ -33,7 +33,7 @@ class LoginController extends Controller
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json'
                 ])
-                ->post($url . '/anjungan/login', [
+                ->post($url . '/api' . '/anjungan/login', [
                     'nik' => $request->nik,
                     'pin' => $request->pin,
                 ]);

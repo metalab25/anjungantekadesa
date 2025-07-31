@@ -26,7 +26,7 @@ class LayananMandiriController extends Controller
 
     public function login(Request $request)
     {
-        $response = Http::post($this->apiBase . '/layanan-mandiri' . '/login', [
+        $response = Http::post($this->apiBase . '/api' . '/layanan-mandiri' . '/login', [
             'nik' => $request->nik,
             'pin' => $request->pin,
         ]);
@@ -46,7 +46,7 @@ class LayananMandiriController extends Controller
     {
         $sessionId = session('penduduk_session_id');
 
-        $response = Http::asForm()->post($this->apiBase . '/layanan-mandiri' . '/logout', [
+        $response = Http::asForm()->post($this->apiBase . '/api' . '/layanan-mandiri' . '/logout', [
             'session_id' => $sessionId,
         ]);
 
@@ -56,7 +56,7 @@ class LayananMandiriController extends Controller
 
     public function listSurat()
     {
-        $url = $this->apiBase . '/layanan-mandiri' . '/surat';
+        $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/surat';
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
 
         $surat = $response->json('data') ?? [];
@@ -65,7 +65,7 @@ class LayananMandiriController extends Controller
 
     public function detailSurat($url_surat)
     {
-        $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $url_surat;
+        $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/surat/' . $url_surat;
         $response = Http::get($url);
         $data = $response->json('data') ?? null;
         $user = Session::get('user');
@@ -84,7 +84,7 @@ class LayananMandiriController extends Controller
     public function ajukanSurat(Request $request, $url_surat)
     {
         try {
-            $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $url_surat . '/ajukan';
+            $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/surat/' . $url_surat . '/ajukan';
 
             $response = Http::withHeaders([
                 'Accept' => 'application/json'
@@ -110,7 +110,7 @@ class LayananMandiriController extends Controller
 
     public function arsipSurat()
     {
-        $url = $this->apiBase . '/layanan-mandiri' . '/arsip';
+        $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/arsip';
 
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
         $arsip = $response->json('data') ?? [];
@@ -120,7 +120,7 @@ class LayananMandiriController extends Controller
 
     public function previewSurat(Request $request, $id)
     {
-        $url = $this->apiBase . '/layanan-mandiri/preview/surat/' . $id;
+        $url = $this->apiBase . '/api' . '/layanan-mandiri/preview/surat/' . $id;
 
         $response = Http::get($url);
         $result = $response->json();
@@ -145,7 +145,7 @@ class LayananMandiriController extends Controller
 
     public function downloadSurat($id)
     {
-        $url = $this->apiBase . '/layanan-mandiri' . '/surat/' . $id . '/download';
+        $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/surat/' . $id . '/download';
 
         return Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))
             ->get($url)
