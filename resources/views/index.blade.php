@@ -9,9 +9,6 @@
 @endpush
 
 @section('content')
-    @php
-        $apiBase = env('DESA_API');
-    @endphp
     <section>
         <div class="page-header min-vh-100">
             <div class="container">
