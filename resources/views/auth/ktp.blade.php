@@ -1,6 +1,11 @@
+<div class="d-flex justify-content-end">
+    <div class="me-4">
+        <a href="{{ route("anjungan") }}" style="text-decoration: underline">Kembali</a>
+    </div>
+</div>
 <div class="card-header pb-0 text-left">
     <div class="d-flex justify-content-center">
-        <img src="{{ $config->website . '/storage' . $config->logo }}" alt="Logo" width="100" class="img-fluid">
+        <img src="{{ $apiBase . '/storage/' . $config->logo }}" alt="Logo" width="100" class="img-fluid">
     </div>
     <h4 class="font-weight-bolder">Anjungan Mandiri {{ $setting->sebutan_desa . ' ' . $config->nama_desa }}</h4>
 </div>

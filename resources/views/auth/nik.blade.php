@@ -1,10 +1,15 @@
+<div class="d-flex justify-content-end">
+    <div class="me-4">
+        <a href="{{ route("anjungan") }}" style="text-decoration: underline">Kembali</a>
+    </div>
+</div>
 <div class="card-header pb-0 text-left">
     <div class="d-flex justify-content-center">
-        <img src="{{ $config->website . '/storage' . $config->logo }}" alt="Logo" width="100" class="img-fluid">
+        <img src="{{ $apiBase . '/storage/' . $config->logo }}" alt="Logo" width="100" class="img-fluid">
     </div>
     <h4 class="font-weight-bolder">Anjungan Mandiri {{ $setting->sebutan_desa . ' ' . $config->nama_desa }}</h4>
 </div>
-<div class="card-body">
+<div class="card-body py-2">
     @if ($errors->any())
         <div class="alert alert-danger border-radius-lg">
             <ul class="mb-0 text-capitalize" style="list-style-type: none">
@@ -26,6 +31,6 @@
             <input type="password" class="form-control text-center border-radius-lg" id="pin" name="pin"
                 required placeholder="Masukan PIN">
         </div>
-        <button type="submit" class="btn btn-primary">MASUK LAYANAN MANDIRI</button>
+        <button type="submit" class="btn btn-primary w-100">MASUK LAYANAN MANDIRI</button>
     </form>
 </div>
