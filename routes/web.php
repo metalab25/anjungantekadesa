@@ -18,6 +18,9 @@ Route::get('/', [AnjunganController::class, 'index'])->name('anjungan');
 Route::get('/login/nik', [LoginController::class, 'loginNik'])->name('login.nik');
 Route::get('/login/ktp', [LoginController::class, 'loginKtp'])->name('login.ktp');
 Route::post('/login', [LoginController::class, 'auth'])->name('login.auth');
+Route::post('/auth-ktp', [LoginController::class, 'auth_ktp'])->name('login.auth_ktp');
+
+Route::post('/update-id-ktp/{penduduk_id}', [\App\Http\Controllers\PendudukMandiriController::class, 'updateIdKtp'])->name('penduduk_mandiri.update_id_ktp');
 
 Route::middleware(SuratAuthMiddleware::class)->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
