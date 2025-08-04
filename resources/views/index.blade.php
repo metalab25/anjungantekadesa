@@ -19,7 +19,7 @@
                     <div div
                         class="col-8 d-flex flex-column my-auto h-100 text-center justify-content-center pe-0 position-absolute top-0 start-0">
                         <div class="position-relative bg-gradient-primary h-100 m-3 my-4 px-7 border-radius-2xl d-flex flex-column justify-content-center"
-                            style="background-image: url('{{ $config->website . '/storage/' . $setting->header }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                            style="background-image: url('{{ $apiBase . '/storage/' . $setting->header }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                             <h4 class="mt-5 text-white font-weight-bolder">
                                 {{ $setting->sebutan_desa . ' ' . $config->nama_desa }}</h4>
                             <p class="text-white">
