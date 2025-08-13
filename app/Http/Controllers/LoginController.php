@@ -9,8 +9,19 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
+    protected $apiBackend;
+
+    public function __construct()
+    {
+        $this->apiBackend = env('DESA_BACKEND_API');
+    }
+    
     public function loginNik()
     {
+
+        $url = $this->apiBackend . '/api' . '/banner';
+        $response = Http::get($url);
+        $result = $response->json('data') ?? [];
         return view('index', [
             'title' => 'Login Teka Desa Anjungan Mandiri Dengan NIK'
         ]);
@@ -18,6 +29,10 @@ class LoginController extends Controller
 
     public function loginKtp()
     {
+
+        $url = $this->apiBackend . '/api' . '/banner';
+        $response = Http::get($url);
+        $result = $response->json('data') ?? [];
         return view('index', [
             'title' => 'Login Teka Desa Anjungan Mandiri Dengan Scan KTP'
         ]);
