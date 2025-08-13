@@ -8,6 +8,7 @@
 <script src="{{ asset('assets/plugins/choices.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/parallax.min.js') }}"></script>
 <script src="{{ asset('assets/js/soft-design-system.js') }}" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 @stack('script')
 
 <script type="text/javascript">

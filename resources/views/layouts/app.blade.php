@@ -29,6 +29,7 @@
     <link href="{{ asset('assets/plugins/fontawesome/css/all.css') }}" rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets/css/soft-design-system.css') }}?v=1.1.0" rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
     @stack('css')
 </head>
 
