@@ -15,7 +15,7 @@ class LoginController extends Controller
     {
         $this->apiBackend = env('DESA_BACKEND_API');
     }
-    
+
     public function loginNik()
     {
 
@@ -23,7 +23,8 @@ class LoginController extends Controller
         $response = Http::get($url);
         $result = $response->json('data') ?? [];
         return view('index', [
-            'title' => 'Login Teka Desa Anjungan Mandiri Dengan NIK'
+            'title' => 'Login Teka Desa Anjungan Mandiri Dengan NIK',
+            'banner' => $result
         ]);
     }
 
@@ -34,7 +35,8 @@ class LoginController extends Controller
         $response = Http::get($url);
         $result = $response->json('data') ?? [];
         return view('index', [
-            'title' => 'Login Teka Desa Anjungan Mandiri Dengan Scan KTP'
+            'title' => 'Login Teka Desa Anjungan Mandiri Dengan Scan KTP',
+            'banner' => $result
         ]);
     }
 
