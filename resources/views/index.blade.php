@@ -18,7 +18,7 @@
                         @php
                             $desaDomain = env('DESA_API');
                         @endphp
-                        @if (count($banner) > 0)
+                        @if (!empty($banner) && count($banner) > 0)
                             <div
                                 class="splide position-relative bg-gradient-primary h-100 m-3 my-4 border-radius-2xl d-flex flex-column justify-content-center overflow-hidden">
                                 <div class="splide__track">
