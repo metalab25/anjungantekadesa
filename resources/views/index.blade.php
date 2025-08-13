@@ -65,9 +65,16 @@
             new Splide('.splide', {
                 type: 'loop',
                 perPage: 1,
+                focus: 'center',
                 autoplay: true,
+                interval: 5000,
                 arrows: false,
-                interval: 3000,
+                pagination: false,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                speed: 1000,
+                perMove: 1,
+                pauseOnHover: false,
+                pauseOnFocus: false,
             }).mount();
         });
     </script>
