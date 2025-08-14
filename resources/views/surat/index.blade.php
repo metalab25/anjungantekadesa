@@ -53,7 +53,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="row">
+                <div class="row" id="surat-container">
                     @foreach ($surat as $surat)
                         <div class="col-md-2 mx-auto">
                             <div class="card border-radius-xl mb-0 mb-sm-3">
@@ -73,3 +73,44 @@
             </div>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#search').on('input', function() {
+                let keyword = $(this).val();
+
+                $.ajax({
+                    url: '/surat',
+                    type: 'GET',
+                    data: {
+                        search: keyword
+                    },
+                    success: function(data) {
+                        let html = '';
+                        data.forEach(function(item) {
+                            html += `
+                        <div class="col-md-2 mx-auto">
+                            <div class="card border-radius-xl mb-0 mb-sm-3">
+                                <div class="card-body p-3">
+                                    <a href="/layanan/surat/${item.url_surat}">
+                                        <div class="item-surat my-auto">
+                                            <i class="fad fa-file-pdf text-info"></i>
+                                            <p class="text-center mb-0">${item.nama ?? '-'}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        });
+                        $('#surat-container').html(html);
+                    },
+                    error: function(xhr) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            })
+        })
+    </script>
+@endpush

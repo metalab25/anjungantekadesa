@@ -57,12 +57,16 @@ class LayananMandiriController extends Controller
         return redirect()->route('layanan.login')->with('success', 'Berhasil logout');
     }
 
-    public function listSurat()
+    public function listSurat(Request $request)
     {
-        $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/surat';
+        $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/surat' . '?search=' . $request->search;
         $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
-
         $surat = $response->json('data') ?? [];
+
+        if ($request->ajax()) {
+            return response()->json($surat);
+        }
+
         return view('surat.index', compact('surat'));
     }
 
