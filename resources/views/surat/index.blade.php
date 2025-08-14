@@ -44,18 +44,22 @@
     <section class="pt-8">
         <div class="container">
             <h3 class="text-center font-poppins mb-4">Daftar Surat</h3>
-            <div class="row justify-content-center">
-                <div class="col-md-6 mx-auto">
-                    <form action="{{ route('surat.index') }}" method="GET">
-                        <div class="form-group">
-                            <div class="input-group mb-5">
-                                <span class="input-group-text border-left-radius-3xl px-4"><i
-                                        class="fal fa-magnifying-glass"></i></span>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-8 d-flex align-items-center mb-5">
+                    <form action="{{ route('surat.index') }}" method="GET" class="w-100">
+                        <div class="form-group m-0">
+                            <div class="input-group">
+                                <span class="input-group-text border-left-radius-3xl px-4">
+                                    <i class="fal fa-magnifying-glass"></i>
+                                </span>
                                 <input class="form-control border-right-radius-3xl py-3" placeholder="Cari surat..."
                                     type="text" id="search" name="search" value="{{ old('search', $search ?? '') }}">
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="col-md-1 d-flex align-items-center mb-5">
+                    <a href="{{ route('surat.arsip.surat') }}" class="text-nowrap">Arsip Surat</a>
                 </div>
                 <div class="row">
                     @foreach ($surat as $surat)

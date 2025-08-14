@@ -51,8 +51,21 @@ class SuratController extends Controller
 
         $result = $response->json();
         if ($result['success'] ?? false) {
-            return redirect()->route('surat.index')->with('success', 'Surat berhasil diajukan');
+            return redirect()->route('surat.arsip.surat')->with('success', 'Surat berhasil diajukan');
         }
+
         return back()->with('error', $result['message'] ?? 'Gagal mengajukan surat')->withInput();
+    }
+
+    public function arsipSurat()
+    {
+        $user = session()->get('user');
+        $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/arsip-surat/' . $user['penduduk_id'];
+        $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
+        $result = $response->json('data') ?? [];
+
+        return view('surat.arsip_surat.index', [
+            'arsip'     => $result
+        ]);
     }
 }

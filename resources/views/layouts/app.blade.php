@@ -35,7 +35,7 @@
 
 <body class="index-page bg-gray-200">
     @include('sweetalert::alert')
-    @if (request()->segment(1) == 'surat')
+    @if (request()->segment(1) == 'surat' || request()->segment(1) == 'arsip-surat')
         @include('layouts.navbar')
     @endif
     @yield('content')

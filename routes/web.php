@@ -25,6 +25,7 @@ Route::post('/update-id-ktp/{penduduk_id}', [\App\Http\Controllers\PendudukMandi
 Route::middleware(SuratAuthMiddleware::class)->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/surat', [LayananMandiriController::class, 'listSurat'])->name('surat.index');
+    Route::get('/arsip-surat', [SuratController::class, 'arsipSurat'])->name('surat.arsip.surat');
     Route::get('/surat/{url_surat}', [LayananMandiriController::class, 'detailSurat'])->name('layanan.surat.detail');
     Route::post('/surat/{url_surat}/ajukan', [LayananMandiriController::class, 'ajukanSurat'])->name('layanan.surat.ajukan');
     Route::get('/preview/surat/{id}', [LayananMandiriController::class, 'previewSurat'])->name('layanan.surat.preview');

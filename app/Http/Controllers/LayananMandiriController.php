@@ -107,7 +107,7 @@ class LayananMandiriController extends Controller
             }
 
             Alert::success('Berhasil', $result['message']);
-            return redirect()->route('layanan.surat.preview', $result['data']['id']);
+            return redirect()->route('surat.arsip.surat');
         } catch (Exception $err) {
             Log::error('Gagal Mengajukan Surat: '  . $err->getMessage());
             return back()->with('Gagal Cetak Surat');
