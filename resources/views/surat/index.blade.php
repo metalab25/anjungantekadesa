@@ -30,10 +30,6 @@
         </div>
     @endif
 
-    @if ($showRfIdModal)
-        @include('partials.rf_id_modal')
-    @endif
-
     @if (session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}

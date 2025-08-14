@@ -12,16 +12,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 class LayananMandiriController extends Controller
 {
     protected $apiBase;
-    protected $showRfIdModal;
 
     public function __construct()
     {
         $this->apiBase = env('DESA_API');
         $user = Session::get('user');
-        $this->showRfIdModal = $user['show_id_ktp'];
 
         view()->share('user', $user);
-        view()->share('showRfIdModal', $this->showRfIdModal);
     }
 
     protected function apiCookies()
