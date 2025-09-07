@@ -71,6 +71,7 @@
                 </div>
                 @include('layouts.copyright')
             </div>
+        </div>
     </section>
 @endsection
 
