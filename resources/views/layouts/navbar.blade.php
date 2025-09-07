@@ -5,8 +5,7 @@
                 class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                 <div class="container-fluid px-0">
 
-                    <img src="{{ $apiBase . '/storage/' . $config->logo }}" alt="Logo" width="35"
-                        class="ms-3">
+                    <img src="{{ $apiBase . '/storage/' . $config->logo }}" alt="Logo" width="35" class="ms-3">
                     <a class="navbar-brand font-weight-bolder ms-sm-2 me-0" href="{{ $config->website }}" rel="tooltip"
                         title="{{ $setting->sebutan_desa . ' ' . $config->nama_desa }}" data-placement="bottom"
                         target="_blank">
@@ -24,7 +23,17 @@
                     </marquee>
 
                     <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0" id="navigation">
-                        <ul class="navbar-nav d-block">
+                        <ul class="navbar-nav d-flex gap-1 align-items-center">
+                            <li class="nav-item">
+                                @if (request()->segment(1) === 'arsip-surat')
+                                    <a href="{{ route('surat.index') }}" style="white-space: nowrap;"
+                                        class="btn float-end bg-primary btn-round mb-0 me-1 mt-2 mt-md-0 text-white">Surat</a>
+                                @else
+                                    <a href="{{ route('surat.arsip.surat') }}" style="white-space: nowrap;"
+                                        class="btn float-end bg-primary btn-round mb-0 me-1 mt-2 mt-md-0 text-white">Arsip
+                                        Surat</a>
+                                @endif
+                            </li>
                             <li class="nav-item">
                                 @if (session('user'))
                                     <form action="{{ route('logout') }}" method="POST">

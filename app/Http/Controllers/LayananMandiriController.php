@@ -154,9 +154,10 @@ class LayananMandiriController extends Controller
     {
         $url = $this->apiBase . '/api' . '/layanan-mandiri' . '/surat/' . $id . '/download';
 
-        return Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))
-            ->get($url)
-            ->throw()
-            ->body();
+        $response = Http::withCookies($this->apiCookies(), parse_url($url, PHP_URL_HOST))->get($url);
+
+        $result = $response->json();
+
+        return null;
     }
 }
