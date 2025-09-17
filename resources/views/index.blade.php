@@ -56,7 +56,7 @@
             .banner-section {
                 position: relative !important;
                 width: 100% !important;
-                height: 29vh !important;
+                height: 40vh !important;
                 /* mirip desktop */
                 top: auto !important;
                 left: auto !important;
