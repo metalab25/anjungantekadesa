@@ -48,7 +48,7 @@
         }
 
 
-        @media (width: 990px) and (height: 1440px) {
+        @media (min-width: 900px) and (height: 1440px) {
             .desktop-layout {
                 flex-direction: column !important;
             }
@@ -56,7 +56,7 @@
             .banner-section {
                 position: relative !important;
                 width: 100% !important;
-                height: 40vh !important;
+                height: 29vh !important;
                 /* mirip desktop */
                 top: auto !important;
                 left: auto !important;
