@@ -1,3 +1,5 @@
+
+
 @extends('layouts.app')
 
 @push('css')
@@ -37,7 +39,6 @@
                 align-items: center;
                 justify-content: center;
                 margin-top: 1rem;
-                padding: 1rem;
             }
 
             .form-card {
@@ -56,10 +57,11 @@
             .banner-section {
                 position: relative !important;
                 width: 100% !important;
-                height: 40vh !important;
+                height: 55vh !important;
                 /* mirip desktop */
                 top: auto !important;
                 left: auto !important;
+                padding: 20px;
             }
 
             .banner-section img {
@@ -77,12 +79,11 @@
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
-                margin-top: 1rem;
             }
 
             .form-card {
-                width: 90% !important;
-                max-width: 400px;
+                width: 100% !important;
+                max-width: 800px;
                 margin: 0 auto;
             }
         }
@@ -91,12 +92,12 @@
 
 @section('content')
     <section>
-        <div class="page-header min-vh-100">
-            <div class="container">
+        <div class="page-header min-vh-100 bg-white">
+            <div class="">
                 <div class="row desktop-layout">
                     <!-- Banner Section -->
                     <div
-                        class="col-8 banner-section d-flex flex-column my-auto h-100 text-center justify-content-center pe-0 position-absolute top-0 start-0">
+                        class="col-8 banner-section d-flex flex-column my-auto h-100 text-center justify-content-center position-absolute top-0 start-0">
                         @php
                             $desaDomain = env('DESA_API');
                         @endphp

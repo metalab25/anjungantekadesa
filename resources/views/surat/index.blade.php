@@ -1,117 +1,168 @@
 @extends('layouts.surat')
 
 @push('css')
-    <style>
-        .item-surat {
-            margin-bottom: 0;
-            text-align: center;
-            min-height: 105px;
-        }
+<style>
+    /* 🔍 Search bar full width */
+    .search-wrapper {
+        padding: 0 5px; /* kiri kanan 5px */
+        margin-top: 6rem;
+        margin-bottom: 1.5rem;
+    }
 
-        .item-surat i {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
+    .search-box {
+        position: relative;
+        width: 100%;
+    }
 
-        .item-surat p {
-            font-size: 0.8em;
-            line-height: 1.3;
+    .search-box input {
+        width: 100%;
+        padding: 12px 20px 12px 45px; /* space untuk ikon */
+        border-radius: 20px; /* radius lebih bulat */
+        border: 1px solid #ddd;
+        background: #fafafa;
+        font-size: 1rem;
+    }
+
+    .search-box input:focus {
+        outline: none;
+        border-color: #166CDA;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(22, 108, 218, 0.15);
+    }
+
+    .search-box i {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        transform: translateY(-50%);
+        color: #999;
+        font-size: 1.1rem;
+    }
+
+    /* 📝 Header section */
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.25rem;
+    }
+
+    .section-header h4 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        color: #222;
+    }
+
+    .section-header a {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #166CDA;
+        text-decoration: none;
+    }
+
+    .section-header a:hover {
+        text-decoration: underline;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    /* Masonry container */
+    #surat-container {
+        column-count: 3;
+        column-gap: 20px;
+    }
+
+    #surat-container .masonry-item {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 20px;
+        break-inside: avoid;
+    }
+
+    .item-surat {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 18px 22px;
+        border-radius: 16px;
+        background: #f5f6f8;
+        transition: background 0.2s ease;
+    }
+
+    .item-surat i {
+        font-size: 1.6rem;
+        margin-right: 14px;
+        padding: 12px;
+        border-radius: 50%;
+        background: #eef3ff;
+        color: #2563eb;
+    }
+
+    .item-surat p {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        #surat-container {
+            column-count: 2;
         }
-    </style>
+    }
+
+    @media (max-width: 480px) {
+        #surat-container {
+            column-count: 1;
+        }
+    }
+</style>
 @endpush
 
 @section('title', 'Daftar Surat')
 
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<section class="pt-4 bg-white">
+    <div class="container">
+        {{-- 🔍 Search --}}
+        <div class="search-wrapper mb-4">
+            <form action="{{ route('surat.index') }}" method="GET" class="search-box">
+                <i class="fal fa-magnifying-glass"></i>
+                <input type="text"
+                       id="search"
+                       name="search"
+                       placeholder="Cari surat..."
+                       value="{{ old('search', $search ?? '') }}">
+            </form>
         </div>
-    @endif
 
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {{-- 📝 Title & Arsip --}}
+        <div class="section-header mt-4">
+            <h4 class="font-poppins fw-bold">Pilih Layanan Pengajuan Surat</h4>
+            <a href="{{ route('surat.arsip.surat') }}" class="fw-semibold">Arsip Surat</a>
         </div>
-    @endif
+        <p class="section-subtitle">Layanan Pengajuan Surat Mandiri</p>
 
-    <section class="pt-8">
-        <div class="container">
-            <h3 class="text-center font-poppins mb-4">Daftar Surat</h3>
-            <div class="row justify-content-center">
-                <div class="col-md-6 mx-auto">
-                    <form action="{{ route('surat.index') }}" method="GET">
-                        <div class="form-group">
-                            <div class="input-group mb-5">
-                                <span class="input-group-text border-left-radius-3xl px-4"><i
-                                        class="fal fa-magnifying-glass"></i></span>
-                                <input class="form-control border-right-radius-3xl py-3" placeholder="Cari surat..."
-                                    type="text" id="search" name="search" value="{{ old('search', $search ?? '') }}">
-                            </div>
+        {{-- 🧩 Masonry Grid --}}
+        <div id="surat-container">
+            @foreach ($surat as $s)
+                <div class="masonry-item">
+                    <a href="{{ route('layanan.surat.detail', $s['url_surat']) }}">
+                        <div class="item-surat">
+                            <i class="fal fa-file-alt"></i>
+                            <p>{{ $s['nama'] ?? '-' }}</p>
                         </div>
-                    </form>
+                    </a>
                 </div>
-                <div class="row" id="surat-container">
-                    @foreach ($surat as $surat)
-                        <div class="col-md-2 mx-auto">
-                            <div class="card border-radius-xl mb-0 mb-sm-3">
-                                <div class="card-body p-3">
-                                    <a href="{{ route('layanan.surat.detail', $surat['url_surat']) }}">
-                                        <div class="item-surat my-auto">
-                                            <i class="fad fa-file-pdf text-info"></i>
-                                            <p class="text-center mb-0">{{ $surat['nama'] ?? '-' }}</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                @include('layouts.copyright')
-            </div>
+            @endforeach
         </div>
-    </section>
+
+        @include('layouts.copyright')
+    </div>
+</section>
 @endsection
-
-@push('script')
-    <script>
-        $(document).ready(function() {
-            $('#search').on('input', function() {
-                let keyword = $(this).val();
-
-                $.ajax({
-                    url: '/surat',
-                    type: 'GET',
-                    data: {
-                        search: keyword
-                    },
-                    success: function(data) {
-                        let html = '';
-                        data.forEach(function(item) {
-                            html += `
-                        <div class="col-md-2 mx-auto">
-                            <div class="card border-radius-xl mb-0 mb-sm-3">
-                                <div class="card-body p-3">
-                                    <a href="/layanan/surat/${item.url_surat}">
-                                        <div class="item-surat my-auto">
-                                            <i class="fad fa-file-pdf text-info"></i>
-                                            <p class="text-center mb-0">${item.nama ?? '-'}</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                        });
-                        $('#surat-container').html(html);
-                    },
-                    error: function(xhr) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            })
-        })
-    </script>
-@endpush
